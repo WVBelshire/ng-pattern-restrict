@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                     middleware: [
                         function(req, res, next) {
                             if (MIN_REQUEST_URL_REGEX.test(req.url) && SRC_REQUEST_URL_REGEX.test(req.url)) {
-                                serveStaticFile(res, '/src/ng-pattern-restrict.min.js');
+                                serveStaticFile(res, '/angular-1.x/src/ng-pattern-restrict.min.js');
                             } else {
                                 var newUrl = req.url.replace(MIN_REQUEST_URL_REGEX, '');
                                 serveStaticFile(res, newUrl);
