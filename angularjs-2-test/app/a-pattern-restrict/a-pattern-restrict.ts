@@ -1,11 +1,11 @@
-import { Directive, Input, HostListener, ElementRef } from '@angular/core';
+import { Directive, Input, Output, HostListener, ElementRef, EventEmitter } from '@angular/core';
 
 const DEBUG: boolean = true;
 
 let showDebugInfo = console.debug;
 
 @Directive({
-  selector: '[a-pattern-restrict]'
+  selector: '[ngModel][a-pattern-restrict]'
 })
 export class APatternRestrict {
   private oldValue: string;
@@ -37,6 +37,9 @@ export class APatternRestrict {
     }
   }
 
+  // approach from http://stackoverflow.com/q/36106350/147507
+  @Output() ngModelChange:EventEmitter<any> = new EventEmitter();
+
   @HostListener('input', ['$event'])
   @HostListener('keyup', ['$event'])
   @HostListener('click', ['$event'])
@@ -66,18 +69,6 @@ export class APatternRestrict {
         evt.preventDefault();
         this.revertToPreviousValue();
       }
-
-      /*
-      //TODO: Angular2 -- is this needed at all?
-
-      // make sure the model is consistent with last approach
-      // needed even when we don't change what has been input -- see https://github.com/AlphaGit/ng-pattern-restrict/pull/43
-      if (ngModelController) {
-        scope.$apply(function () {
-          ngModelController.$setViewValue(oldValue);
-        });
-      }
-      */
   }
 
   private regex: RegExp;
@@ -199,6 +190,8 @@ export class APatternRestrict {
     if (typeof(this.caretPosition) !== 'undefined') {
       this.setCaretPosition(this.caretPosition);
     }
+
+    this.ngModelChange.emit(this.oldValue);
   }
 
   private updateCurrentValue(newValue: string): void {

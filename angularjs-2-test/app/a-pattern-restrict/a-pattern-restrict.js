@@ -14,6 +14,8 @@ var showDebugInfo = console.debug;
 var APatternRestrict = (function () {
     function APatternRestrict(el) {
         this.el = el;
+        // approach from http://stackoverflow.com/q/36106350/147507
+        this.ngModelChange = new core_1.EventEmitter();
         DEBUG && showDebugInfo("Initializing");
         this.oldValue = el.nativeElement.value;
         if (!this.oldValue)
@@ -66,17 +68,6 @@ var APatternRestrict = (function () {
             evt.preventDefault();
             this.revertToPreviousValue();
         }
-        /*
-        //TODO: Angular2 -- is this needed at all?
-  
-        // make sure the model is consistent with last approach
-        // needed even when we don't change what has been input -- see https://github.com/AlphaGit/ng-pattern-restrict/pull/43
-        if (ngModelController) {
-          scope.$apply(function () {
-            ngModelController.$setViewValue(oldValue);
-          });
-        }
-        */
     };
     APatternRestrict.prototype.notThrows = function (testFn, shouldReturnTruthy) {
         if (shouldReturnTruthy === void 0) { shouldReturnTruthy = false; }
@@ -181,6 +172,7 @@ var APatternRestrict = (function () {
         if (typeof (this.caretPosition) !== 'undefined') {
             this.setCaretPosition(this.caretPosition);
         }
+        this.ngModelChange.emit(this.oldValue);
     };
     APatternRestrict.prototype.updateCurrentValue = function (newValue) {
         this.oldValue = newValue;
@@ -205,6 +197,10 @@ var APatternRestrict = (function () {
         __metadata('design:type', Object)
     ], APatternRestrict.prototype, "pattern", null);
     __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], APatternRestrict.prototype, "ngModelChange", void 0);
+    __decorate([
         core_1.HostListener('input', ['$event']),
         core_1.HostListener('keyup', ['$event']),
         core_1.HostListener('click', ['$event']), 
@@ -214,7 +210,7 @@ var APatternRestrict = (function () {
     ], APatternRestrict.prototype, "genericEventHandler", null);
     APatternRestrict = __decorate([
         core_1.Directive({
-            selector: '[a-pattern-restrict]'
+            selector: '[ngModel][a-pattern-restrict]'
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef])
     ], APatternRestrict);
