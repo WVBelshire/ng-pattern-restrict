@@ -3,7 +3,7 @@ var configBuilder = require('./protractor-conf-builder');
 var config = configBuilder.getDefaults();
 config.sauceUser = process.env.SAUCE_USERNAME;
 config.sauceKey = process.env.SAUCE_ACCESS_KEY;
-config.baseUrl = 'http://localhost:9001/min';
+config.baseUrl = 'http://localhost:9001/min/angular-1.x/';
 config.multiCapabilities = [
     configBuilder.getCapability({ testExtraDescriptor: '(minified source)', browserName: 'chrome' }),
     configBuilder.getCapability({ testExtraDescriptor: '(minified source)', browserName: 'firefox' }),
