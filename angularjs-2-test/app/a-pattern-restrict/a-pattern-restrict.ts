@@ -1,5 +1,9 @@
 import { Directive, Input, HostListener, ElementRef } from '@angular/core';
 
+const DEBUG: boolean = true;
+
+let showDebugInfo = console.debug;
+
 @Directive({
   selector: '[a-pattern-restrict]'
 })
@@ -8,42 +12,57 @@ export class APatternRestrict {
   private caretPosition: number;
 
   constructor(private el: ElementRef) {
-    //TODO set regExp cache on pattern
-
-    //DEBUG && showDebugInfo("Initializing");
-    this.oldValue = el.nativeElement.val();
+    DEBUG && showDebugInfo("Initializing");
+    this.oldValue = el.nativeElement.value;
     if (!this.oldValue) this.oldValue = '';
-    //DEBUG && showDebugInfo("Original value:", oldValue);
+    DEBUG && showDebugInfo(`Original value: ${this.oldValue}`);
 
     this.detectGetCaretPositionMethods();
     this.detectSetCaretPositionMethods();
   }
 
-  @Input() pattern: string;
+  private _pattern: string;
+  get pattern() {
+    return this._pattern;
+  }
 
-  @HostListener('input keyup click') genericEventHandler(evt: Event) {
+  @Input()
+  set pattern(value: string) {
+    try {
+      this.regex = new RegExp(value);
+      this._pattern = value;
+      DEBUG && showDebugInfo(`Pattern binding changed to: ${this._pattern}`);
+    } catch (e) {
+      throw `Invalid RegEx string parsed for ngPatternRestrict: ${value}`;
+    }
+  }
+
+  @HostListener('input', ['$event'])
+  @HostListener('keyup', ['$event'])
+  @HostListener('click', ['$event'])
+  genericEventHandler(evt: Event) {
       //HACK Chrome returns an empty string as value if user inputs a non-numeric string into a number type input
       // and this may happen with other non-text inputs soon enough. As such, if getting the string only gives us an
       // empty string, we don't have the chance of validating it against a regex. All we can do is assume it's wrong,
       // since the browser is rejecting it either way.
 
-      var iElement = this.el.nativeElement;
-      let newValue = iElement.val();
-      let inputValidity = iElement.prop('validity');
+      var iElement = <HTMLInputElement>this.el.nativeElement;
+      let newValue = iElement.value;
+      let inputValidity = iElement.validity;
 
-      if (newValue === '' && iElement.attr('type') !== 'text' && inputValidity && inputValidity.badInput) {
-        //DEBUG && showDebugInfo("Value cannot be verified. Should be invalid. Reverting back to:", oldValue);
+      if (newValue === '' && iElement.type !== 'text' && inputValidity && inputValidity.badInput) {
+        DEBUG && showDebugInfo(`Value cannot be verified. Should be invalid. Reverting back to: ${this.oldValue}`);
         evt.preventDefault();
         this.revertToPreviousValue();
-      } else if (newValue === "" && this.getValueLengthThroughSelection(<ElementRef>iElement) !== 0) {
-        //DEBUG && showDebugInfo("Invalid input. Reverting back to:", oldValue);
+      } else if (newValue === "" && this.getValueLengthThroughSelection(<ElementRef>this.el) !== 0) {
+        DEBUG && showDebugInfo(`Invalid input. Reverting back to: ${this.oldValue}`);
         evt.preventDefault();
         this.revertToPreviousValue();
-      } else if (this.testPattern(newValue)) {
-        //DEBUG && showDebugInfo("New value passed validation against", regex, newValue);
+      } else if (this.regex.test(newValue)) {
+        DEBUG && showDebugInfo(`New value passed validation against ${this.regex}: ${newValue}`);
         this.updateCurrentValue(newValue);
       } else {
-        //DEBUG && showDebugInfo("New value did NOT pass validation against", regex, newValue, "Reverting back to:", oldValue);
+        DEBUG && showDebugInfo(`New value did NOT pass validation against ${this.regex}: ${newValue}, reverting back to: ${this.oldValue}`);
         evt.preventDefault();
         this.revertToPreviousValue();
       }
@@ -60,6 +79,8 @@ export class APatternRestrict {
       }
       */
   }
+
+  private regex: RegExp;
 
   private notThrows(testFn: Function, shouldReturnTruthy: boolean = false): boolean {
     try {
@@ -137,7 +158,7 @@ export class APatternRestrict {
     // create a selection range from where we are to the beggining
     // and measure how much we moved
     let range = (<any>document).selection.createRange();
-    range.moveStart('character', this.el.nativeElement.val().length);
+    range.moveStart('character', this.el.nativeElement.value.length);
     return range.text.length;
   }
 
@@ -173,7 +194,7 @@ export class APatternRestrict {
   }
 
   private revertToPreviousValue(): void {
-    this.el.nativeElement.val(this.oldValue);
+    this.el.nativeElement.value = this.oldValue;
 
     if (typeof(this.caretPosition) !== 'undefined') {
       this.setCaretPosition(this.caretPosition);
@@ -199,17 +220,5 @@ export class APatternRestrict {
     document.execCommand('selectAll');
     let focusNode = window.getSelection().focusNode;
     return (<any>(focusNode || {})).selectionStart || 0;
-  }
-
-  private testPattern(value: string): boolean {
-    let regex: RegExp;
-    try {
-      //TODO avoid genering RegExp each time, create cached version that updates only on changes to the bound property
-      regex = new RegExp(this.pattern);
-    } catch (e) {
-      throw `Invalid RegEx string parsed for ngPatternRestrict: ${this.pattern}`;
-    }
-
-    return regex.test(value);
   }
 };
