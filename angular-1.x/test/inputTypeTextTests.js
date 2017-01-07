@@ -4,7 +4,7 @@ describe('Input type=text', function() {
   var page = null;
   beforeEach(function() {
     page = new TestPage();
-    page.open('/test/pages/inputTypeText.html');
+    page.open('test/pages/inputTypeText.html');
     page.setTitle(jasmine.getEnv().currentSpec.getFullName());
     page.setBrowserInfo();
   });

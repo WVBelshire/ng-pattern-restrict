@@ -6,7 +6,7 @@ module.exports = {
 function getConfigurationDefaults() {
   return {
     specs: ['test/*.js'],
-    baseUrl: 'http://localhost:9001/',
+    baseUrl: 'http://localhost:9001/angular-1.x/',
     jasmineNodeOpts: {
       showColors: true,
       isVerbose: true,

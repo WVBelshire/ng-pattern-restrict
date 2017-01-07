@@ -4,7 +4,7 @@ describe('IME Inputs', function() {
   var page = null;
   beforeEach(function() {
     page = new ngModelTestPage();
-    page.open('/test/pages/imeInput.html');
+    page.open('test/pages/imeInput.html');
     page.setTitle(jasmine.getEnv().currentSpec.getFullName());
     page.setBrowserInfo();
   });

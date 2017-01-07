@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                 options: {
                     hostname: 'localhost',
                     port: 9001,
-                    base: '.',
+                    base: './angular-1.x/',
                     middleware: [
                         function(req, res, next) {
                             if (MIN_REQUEST_URL_REGEX.test(req.url) && SRC_REQUEST_URL_REGEX.test(req.url)) {
@@ -50,26 +50,26 @@ module.exports = function(grunt) {
         },
         protractor: {
             options: {
-                configFile: 'protractor-conf.js',
+                configFile: 'angular-1.x/protractor-conf.js',
                 keepAlive: false,
                 noColor: false,
                 args: { }
             },
             test: {
                 options: {
-                    configFile: 'protractor-conf.js',
+                    configFile: 'angular-1.x/protractor-conf.js',
                     args: { }
                 }
             },
             travis: {
                 options: {
-                    configFile: 'protractor-travis-conf.js',
+                    configFile: 'angular-1.x/protractor-travis-conf.js',
                     args: { }
                 }
             },
             travismin: {
                 options: {
-                    configFile: 'protractor-travis-min-conf.js',
+                    configFile: 'angular-1.x/protractor-travis-min-conf.js',
                     args: { }
                 }
             }
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'src/ng-pattern-restrict.min.js': ['src/ng-pattern-restrict.js']
+                    'angular-1.x/src/ng-pattern-restrict.min.js': ['angular-1.x/src/ng-pattern-restrict.js']
                 },
                 options: {
                     compress: {

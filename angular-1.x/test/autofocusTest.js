@@ -5,7 +5,7 @@ describe('Focus', function() {
   var page = null;
   beforeEach(function() {
     page = new TestPage();
-    page.open('/test/pages/autoFocus.html');
+    page.open('test/pages/autoFocus.html');
     
     // These would affect the focus of the page
     // page.setTitle(jasmine.getEnv().currentSpec.getFullName());
