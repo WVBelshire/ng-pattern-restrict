@@ -2,8 +2,6 @@ module.exports = function BasicTestPage() {
   var htmlPatternTextBox = null;
   var patternTextBox = null;
   var textBox = null;
-  var title = null;
-  var browserInfo = null;
 
   function setText(textElement, text) {
     // .clear().sendKeys() will POST value="" and POST value=text
@@ -20,8 +18,6 @@ module.exports = function BasicTestPage() {
       htmlPatternTextBox = element(by.id('htmlPattern'));
       patternTextBox = element(by.id('pattern'));
       textBox = element(by.id('textbox'));
-      title = element(by.id('title'));
-      browserInfo = element(by.id('browserInfo'));
     },
 
     setHtmlPattern: function(pattern) {
@@ -38,15 +34,6 @@ module.exports = function BasicTestPage() {
 
     getText: function() {
       return textBox.getAttribute('value');
-    },
-
-    setTitle: function(titleText) {
-      return setText(title, titleText);
-    },
-
-    setBrowserInfo: function() {
-      var browserInfoText = browser.browserName + ' ' + browser.browserVersion + ' (' + browser.platformName + ')';
-      return setText(browserInfo, browserInfoText);
     }
   }
 };

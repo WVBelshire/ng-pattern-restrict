@@ -5,8 +5,6 @@ describe('Input type=text', function() {
   beforeEach(function() {
     page = new TestPage();
     page.open('test/pages/inputTypeText.html');
-    page.setTitle(jasmine.getEnv().currentSpec.getFullName());
-    page.setBrowserInfo();
   });
 
   describe('Alphabetical input', function() {

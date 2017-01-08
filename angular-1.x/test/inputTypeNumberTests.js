@@ -6,8 +6,6 @@ describe('Input type=number', function() {
   beforeEach(function() {
     page = new TestPage();
     page.open('test/pages/inputTypeNumber.html');
-    page.setTitle(jasmine.getEnv().currentSpec.getFullName());
-    page.setBrowserInfo();
   });
 
   it('should retrieve the valid numeric input as its value', function() {

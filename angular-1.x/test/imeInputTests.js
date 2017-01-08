@@ -5,8 +5,6 @@ describe('IME Inputs', function() {
   beforeEach(function() {
     page = new ngModelTestPage();
     page.open('test/pages/imeInput.html');
-    page.setTitle(jasmine.getEnv().currentSpec.getFullName());
-    page.setBrowserInfo();
   });
 
   it('should allow numerical input', function() {
@@ -40,4 +38,4 @@ describe('IME Inputs', function() {
 
     expect(page.getModelValue()).toEqual('123');
   });
-});
+}); // End: IME Inputs

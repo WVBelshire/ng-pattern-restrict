@@ -1,8 +1,6 @@
 module.exports = function AutoFocusTestPage() {
   var textBox1 = null;
   var textBox2 = null;
-  var title = null;
-  var browserInfo = null;
 
   function setText(textElement, text) {
     // .clear().sendKeys() will POST value="" and POST value=text
@@ -18,8 +16,6 @@ module.exports = function AutoFocusTestPage() {
 
       textBox1 = element(by.id('textbox1'));
       textBox2 = element(by.id('textbox2'));
-      title = element(by.id('title'));
-      browserInfo = element(by.id('browserInfo'));
     },
 
     sendKeys: function(text) {
@@ -32,15 +28,6 @@ module.exports = function AutoFocusTestPage() {
 
     getText2: function() {
       return textBox2.getAttribute('value');
-    },
-
-    setTitle: function(titleText) {
-      return setText(title, titleText);
-    },
-
-    setBrowserInfo: function() {
-      var browserInfoText = browser.browserName + ' ' + browser.browserVersion + ' (' + browser.platformName + ')';
-      return setText(browserInfo, browserInfoText);
     }
   }
 };

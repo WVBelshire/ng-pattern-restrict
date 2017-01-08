@@ -1,7 +1,5 @@
-module.exports = function AutoFocusTestPage() {
+module.exports = function ValidationTestPage() {
   var textBox1 = null;
-  var title = null;
-  var browserInfo = null;
   var validStatusElement = null;
 
   function setText(textElement, text) {
@@ -17,8 +15,6 @@ module.exports = function AutoFocusTestPage() {
       browser.get(url);
 
       textBox1 = element(by.id('textbox1'));
-      title = element(by.id('title'));
-      browserInfo = element(by.id('browserInfo'));
       validStatusElement = element(by.id('ngValid'));
     },
 
@@ -28,15 +24,6 @@ module.exports = function AutoFocusTestPage() {
 
     getText: function() {
       return textBox1.getAttribute('value');
-    },
-
-    setTitle: function(titleText) {
-      return setText(title, titleText);
-    },
-
-    setBrowserInfo: function() {
-      var browserInfoText = browser.browserName + ' ' + browser.browserVersion + ' (' + browser.platformName + ')';
-      return setText(browserInfo, browserInfoText);
     },
 
     getValidStatusPromise: function() {

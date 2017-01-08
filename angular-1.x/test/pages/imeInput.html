@@ -13,9 +13,6 @@
   <link rel="stylesheet" type="text/css" href="testStyles.css">
 </head>
 <body ng-controller="TestController" >
-  <input type="text" id="browserInfo" />
-  <input type="text" id="title" />
-
   <label for="textbox">Text:</label>
   <input type="text" id="textbox" ng-pattern-restrict="^[0-9]*$" ng-model="modelValue" />
   <p>ng-model: <span id="modelValue">{{modelValue}}</span></p>

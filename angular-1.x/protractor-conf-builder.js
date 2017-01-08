@@ -3,6 +3,8 @@ module.exports = {
   getCapability: getCapability
 };
 
+var env = {};
+
 function getConfigurationDefaults() {
   return {
     specs: ['test/*.js'],
@@ -13,15 +15,6 @@ function getConfigurationDefaults() {
       realtimeFailure: true,
       includeStackTrace: true,
       defaultTimeoutInterval: 30000
-    },
-    // http://stackoverflow.com/a/23873194/147507: Getting current browser name and platform
-    onPrepare: function() {
-      // https://code.google.com/p/selenium/wiki/DesiredCapabilities
-      return browser.getCapabilities().then(function(capabilities) {
-        browser.browserName = capabilities.caps_.browserName;
-        browser.platformName = capabilities.caps_.platform;
-        browser.browserVersion = capabilities.caps_.version;
-      });
     }
   };
 }

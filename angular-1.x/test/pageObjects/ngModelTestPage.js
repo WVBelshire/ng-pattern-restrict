@@ -1,7 +1,5 @@
-module.exports = function ngModelTestPage() {
+module.exports = function NgModelTestPage() {
   var textBox = null;
-  var title = null;
-  var browserInfo = null;
   var modelValue = null;
 
   function setText(textElement, text) {
@@ -17,8 +15,6 @@ module.exports = function ngModelTestPage() {
       browser.get(url);
 
       textBox = element(by.id('textbox'));
-      title = element(by.id('title'));
-      browserInfo = element(by.id('browserInfo'));
       modelValue = element(by.id('modelValue'));
     },
 
@@ -32,15 +28,6 @@ module.exports = function ngModelTestPage() {
 
     getModelValue: function() {
       return modelValue.getInnerHtml();
-    },
-
-    setTitle: function(titleText) {
-      return setText(title, titleText);
-    },
-
-    setBrowserInfo: function() {
-      var browserInfoText = browser.browserName + ' ' + browser.browserVersion + ' (' + browser.platformName + ')';
-      return setText(browserInfo, browserInfoText);
     }
   }
 };

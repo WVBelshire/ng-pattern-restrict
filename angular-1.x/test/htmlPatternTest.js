@@ -5,8 +5,6 @@ describe('HTML pattern attribute', function() {
   beforeEach(function() {
     page = new TestPage();
     page.open('test/pages/inputTypeText.html');
-    page.setTitle(jasmine.getEnv().currentSpec.getFullName());
-    page.setBrowserInfo();
   });
 
   it("should be read if ng-pattern-restrict does not have value", function() {

@@ -5,11 +5,7 @@ describe('Focus', function() {
   var page = null;
   beforeEach(function() {
     page = new TestPage();
-    page.open('test/pages/ngValidation.html');
-    
-    // These would affect the focus of the page
-    page.setTitle(jasmine.getEnv().currentSpec.getFullName());
-    page.setBrowserInfo();
+    page.open('test/pages/ngValidation.html');    
   });
 
   it('should leave input always in a valid state', function() {

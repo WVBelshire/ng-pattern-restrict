@@ -6,10 +6,6 @@ describe('Focus', function() {
   beforeEach(function() {
     page = new TestPage();
     page.open('test/pages/autoFocus.html');
-    
-    // These would affect the focus of the page
-    // page.setTitle(jasmine.getEnv().currentSpec.getFullName());
-    // page.setBrowserInfo();
   });
 
   // SafariWebDriver interactions are not implemented, cannot sendKeys to page
