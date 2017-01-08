@@ -1,11 +1,11 @@
-var TestPage = require('./pageObjects/autofocusTestPage');
-var ignoreBrowsers = require('./testFramework/ignoreBrowsers');
+var TestPage = require('../pageObjects/autofocusTestPage');
+var ignoreBrowsers = require('../testFramework/ignoreBrowsers');
 
 describe('Focus', function() {
   var page = null;
   beforeEach(function() {
     page = new TestPage();
-    page.open('test/pages/autoFocus.html');
+    page.open('testPages/autoFocus.html');
   });
 
   // SafariWebDriver interactions are not implemented, cannot sendKeys to page

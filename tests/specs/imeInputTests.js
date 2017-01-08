@@ -1,10 +1,10 @@
-var ngModelTestPage = require('./pageObjects/ngModelTestPage');
+var ngModelTestPage = require('../pageObjects/ngModelTestPage');
 
 describe('IME Inputs', function() {
   var page = null;
   beforeEach(function() {
     page = new ngModelTestPage();
-    page.open('test/pages/imeInput.html');
+    page.open('testPages/imeInput.html');
   });
 
   it('should allow numerical input', function() {

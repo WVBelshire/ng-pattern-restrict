@@ -1,10 +1,10 @@
-var TestPage = require('./pageObjects/basicTestPage');
+var TestPage = require('../pageObjects/basicTestPage');
 
 describe('HTML pattern attribute', function() {
   var page = null;
   beforeEach(function() {
     page = new TestPage();
-    page.open('test/pages/inputTypeText.html');
+    page.open('testPages/inputTypeText.html');
   });
 
   it("should be read if ng-pattern-restrict does not have value", function() {

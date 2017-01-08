@@ -1,10 +1,10 @@
-var TestPage = require('./pageObjects/validationTestPage');
+var TestPage = require('../pageObjects/validationTestPage');
 
 describe('Focus', function() {
   var page = null;
   beforeEach(function() {
     page = new TestPage();
-    page.open('test/pages/ngValidation.html');    
+    page.open('testPages/ngValidation.html');    
   });
 
   it('should leave input always in a valid state', function() {

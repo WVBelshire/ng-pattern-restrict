@@ -50,26 +50,26 @@ module.exports = function(grunt) {
         },
         protractor: {
             options: {
-                configFile: 'angular-1.x/protractor-conf.js',
+                configFile: 'tests/protractor-conf.js',
                 keepAlive: false,
                 noColor: false,
                 args: { }
             },
             test: {
                 options: {
-                    configFile: 'angular-1.x/protractor-conf.js',
+                    configFile: 'tests/protractor-conf.js',
                     args: { }
                 }
             },
             travis: {
                 options: {
-                    configFile: 'angular-1.x/protractor-travis-conf.js',
+                    configFile: 'tests/protractor-travis-conf.js',
                     args: { }
                 }
             },
             travismin: {
                 options: {
-                    configFile: 'angular-1.x/protractor-travis-min-conf.js',
+                    configFile: 'tests/protractor-travis-min-conf.js',
                     args: { }
                 }
             }

@@ -1,12 +1,12 @@
-var TestPage = require('./pageObjects/basicTestPage');
-var ignoreBrowsers = require('./testFramework/ignoreBrowsers');
+var TestPage = require('../pageObjects/basicTestPage');
+var ignoreBrowsers = require('../testFramework/ignoreBrowsers');
 
 describe('Input type=number', function() {
   var page = null;
 
   beforeEach(function() {
     page = new TestPage();
-    page.open('test/pages/inputTypeNumber.html');
+    page.open('testPages/inputTypeNumber.html');
   });
 
   it('should retrieve the valid numeric input as its value', function() {

@@ -1,10 +1,10 @@
-var TestPage = require('./pageObjects/basicTestPage');
+var TestPage = require('../pageObjects/basicTestPage');
 
 describe('Input type=text', function() {
   var page = null;
   beforeEach(function() {
     page = new TestPage();
-    page.open('test/pages/inputTypeText.html');
+    page.open('testPages/inputTypeText.html');
   });
 
   describe('Alphabetical input', function() {
