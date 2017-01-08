@@ -1,5 +1,4 @@
 var TestPage = require('./pageObjects/validationTestPage');
-var testIf = require('./testFramework/testIf');
 
 describe('Focus', function() {
   var page = null;

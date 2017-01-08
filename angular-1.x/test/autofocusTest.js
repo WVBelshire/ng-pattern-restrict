@@ -1,5 +1,5 @@
 var TestPage = require('./pageObjects/autofocusTestPage');
-var testIf = require('./testFramework/testIf');
+var ignoreBrowsers = require('./testFramework/ignoreBrowsers');
 
 describe('Focus', function() {
   var page = null;
@@ -10,7 +10,7 @@ describe('Focus', function() {
 
   // SafariWebDriver interactions are not implemented, cannot sendKeys to page
   // https://code.google.com/p/selenium/issues/detail?id=4136
-  testIf(['safari'].indexOf(browser.browserName) === -1, function(it) {
+  ignoreBrowsers(['safari'], function(it) {
     it('should not focus the elements it uses', function() {
       page.sendKeys('ABC');
 
