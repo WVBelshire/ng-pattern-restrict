@@ -1,16 +1,8 @@
 var TestPage = require('./pageObjects/basicTestPage');
-var testIf = require('./testFramework/testIf');
+var ignoreBrowsers = require('./testFramework/ignoreBrowsers');
 
 describe('Input type=number', function() {
   var page = null;
-
-  beforeAll(function(done) {
-    browser.getCapabilities()
-      .then(function(capabilities) {
-        browser.browserName = capabilities.get('browserName');
-      })
-      .then(done);
-  });
 
   beforeEach(function() {
     page = new TestPage();
@@ -30,7 +22,7 @@ describe('Input type=number', function() {
     expect(page.getText()).toEqual('');
   });
 
-  testIf(['safari'].indexOf(browser.browserName) === -1, function(it) {
+  ignoreBrowsers(['safari'], function(it) {
     it('should revert back to the last known good value', function() {
       page.setPattern('^[123]*$');
       page.setText('123');
@@ -42,7 +34,7 @@ describe('Input type=number', function() {
     });
   });
 
-  testIf(['internet explorer', 'chrome', 'safari'].indexOf(browser.browserName) === -1, function(it) {
+  ignoreBrowsers(['internet explorer', 'chrome', 'safari'], function(it) {
     it('should revert back to last valid value, when input cannot be verified', function() {
       page.setPattern('^\\d*$');
 
@@ -53,7 +45,7 @@ describe('Input type=number', function() {
     });
   });
 
-  testIf(['internet explorer', 'chrome', 'safari'].indexOf(browser.browserName) === -1, function(it) {
+  ignoreBrowsers(['internet explorer', 'chrome', 'safari'], function(it) {
     it('should leave an empty value on invalid numeric input', function() {
       page.setPattern('^\\d*$');
 
