@@ -3,6 +3,15 @@ var testIf = require('./testFramework/testIf');
 
 describe('Input type=number', function() {
   var page = null;
+
+  beforeAll(function(done) {
+    browser.getCapabilities()
+      .then(function(capabilities) {
+        browser.browserName = capabilities.get('browserName');
+      })
+      .then(done);
+  });
+
   beforeEach(function() {
     page = new TestPage();
     page.open('test/pages/inputTypeNumber.html');
