@@ -185,7 +185,7 @@ angular.module('ngPatternRestrict', [])
               return;
             }
 
-            iElement.bind('input keyup click', genericEventHandler);
+            iElement.on('input keyup click', genericEventHandler);
 
             DEBUG && showDebugInfo("Bound events: input, keyup, click");
           }
@@ -195,13 +195,13 @@ angular.module('ngPatternRestrict', [])
               return;
             }
 
-            iElement.unbind('input', genericEventHandler);
+            iElement.off('input', genericEventHandler);
             //input: HTML5 spec, changes in content
 
-            iElement.unbind('keyup', genericEventHandler);
+            iElement.off('keyup', genericEventHandler);
             //keyup: DOM L3 spec, key released (possibly changing content)
 
-            iElement.unbind('click', genericEventHandler);
+            iElement.off('click', genericEventHandler);
             //click: DOM L3 spec, mouse clicked and released (possibly changing content)
 
             DEBUG && showDebugInfo("Unbound events: input, keyup, click");
